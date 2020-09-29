@@ -11,7 +11,7 @@ RUN echo "deb http://www.deb-multimedia.org buster main non-free"  >> /etc/apt/s
     && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
     --allow-unauthenticated deb-multimedia-keyring \
     && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
-    --allow-unauthenticated ffmpeg=10:4.1.4-dmo1+deb10u1
+    --allow-unauthenticated ffmpeg
 
 RUN mkdir -p /code/doc2audiobook
 

@@ -21,8 +21,8 @@ def collect_input_files(input_directory_path: Path) -> Generator[Path, None, Non
 
 
 def text_to_mp3(client: texttospeech.TextToSpeechClient,
-                voice: texttospeech.types.VoiceSelectionParams,
-                audio_config: texttospeech.types.AudioConfig,
+                voice: texttospeech.VoiceSelectionParams,
+                audio_config: texttospeech.AudioConfig,
                 text: str,
                 output_file_path: Path) -> None:
     """
@@ -45,10 +45,10 @@ def text_to_mp3(client: texttospeech.TextToSpeechClient,
         for (i, text_chunk) in enumerate(lines):
             # skip empty lines
             if len(text_chunk) > 0:
-                input_text = texttospeech.types.SynthesisInput(text=text_chunk)
+                input_text = texttospeech.SynthesisInput(text=text_chunk)
                 try:
                     logger.info(f'Synthesising speech for chunk `{i}`, size: `{len(text_chunk)}`')
-                    response = client.synthesize_speech(input_text, voice, audio_config)
+                    response = client.synthesize_speech(input=input_text, voice=voice, audio_config=audio_config)
                 except Exception as e:
                     # If a line could not be synthesised properly, return it along with the error message
                     # It is possible that textract could not extract the text properly.

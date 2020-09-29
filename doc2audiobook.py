@@ -27,8 +27,8 @@ def parse_arguments():
 def process_input_files(input_path: Path,
                         output_directory_path: Path,
                         client: texttospeech.TextToSpeechClient,
-                        voice: texttospeech.types.VoiceSelectionParams,
-                        audio_config: texttospeech.types.AudioConfig
+                        voice: texttospeech.VoiceSelectionParams,
+                        audio_config: texttospeech.AudioConfig
                         ) -> None:
     """
     Process every file inside `input_directory_path` and save results in `output_directory_path`.
@@ -90,16 +90,16 @@ def main():
 
     logger.info(f'Using voice `{use_voice}` in language `{use_language}`')
 
-    voice = texttospeech.types.VoiceSelectionParams(language_code=use_language, name=use_voice)
-    audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
+    voice = texttospeech.VoiceSelectionParams(language_code=use_language, name=use_voice)
+    audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
 
     if args.input:
-        input_path = Path('/data/input') / Path(args.input)
+        input_path = Path(args.input)
     else:
         input_path = Path('/data/input')
 
     process_input_files(
-        input_path=input_path, output_directory_path=Path('/data/output'),
+        input_path=input_path, output_directory_path=Path('data/output'),
         client=client, voice=voice, audio_config=audio_config
     )
 
